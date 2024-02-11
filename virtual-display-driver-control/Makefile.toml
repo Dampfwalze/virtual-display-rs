@@ -1,0 +1,33 @@
+[env]
+BUILD_FLAGS = "--debug"
+BUILD_OUT_DIR = '''build\windows\x64\runner\Debug'''
+
+[env.prod]
+BUILD_OUT_DIR = '''build\windows\x64\runner\Release'''
+BUILD_FLAGS = "--release"
+
+
+[tasks.copy]
+script = ['''
+    if not exist "..\\target\\output\\vddc" (
+        echo Directory not found, creating it...
+        mkdir ..\\target\\output\\vddc
+    ) else (
+        echo Directory found, cleaning it...
+        del /S /Q /F ..\\target\\output\\vddc\\*
+    )
+    ''', '''
+        xcopy %BUILD_OUT_DIR%\ ..\target\output\vddc\ /E
+    ''']
+
+[tasks.generate]
+script = '''
+    cargo make %PROFILE% --cwd ..\driver-ipc-dart generate
+    '''
+
+[tasks.build]
+dependencies = ["generate"]
+script = "flutter build windows %BUILD_FLAGS%"
+
+[config]
+skip_core_tasks = true

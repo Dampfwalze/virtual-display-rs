@@ -1,0 +1,9 @@
+[tasks.generate]
+script = '''
+    dart run build_runner build
+    '''
+
+[tasks.generate-watch]
+script = '''
+    dart run build_runner watch
+    '''
