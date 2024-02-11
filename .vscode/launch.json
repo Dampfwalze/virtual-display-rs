@@ -9,6 +9,12 @@
             "request": "attach",
             "name": "Attach",
             "pid": "${command:pickMyProcess}"
+        },
+        {
+            "name": "Launch virtual-display-driver-control",
+            "type": "dart",
+            "request": "launch",
+            "program": "virtual-display-driver-control/lib/main.dart"
         }
     ]
 }
