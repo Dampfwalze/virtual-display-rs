@@ -30,7 +30,7 @@ dependencies = ["generate"]
 script = "flutter build windows %BUILD_FLAGS%"
 
 [tasks.harvest]
-script = '''%WIX%\bin\heat.exe dir %BUILD_OUT_DIR%\ -o ../target/wix/vddc_files.wxs -dr APPLICATIONFOLDER -ag -sfrag -srd -suid -cg VDDC -var env.VDDC_OUT_PATH'''
+script = '''"%WIX%\bin\heat.exe" dir %BUILD_OUT_DIR%\ -o ../target/wix/vddc_files.wxs -dr APPLICATIONFOLDER -ag -sfrag -srd -suid -cg VDDC -var env.VDDC_OUT_PATH'''
 
 [config]
 skip_core_tasks = true
