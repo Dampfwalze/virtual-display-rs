@@ -139,7 +139,7 @@
                 <Shortcut Id="ApplicationStartMenuShortcut"
                         Name="Virtual Display Driver Control"
                         Description="Manages your virtual displays"
-                        Target="[#exe0]"
+                        Target="[#virtual_display_driver_control.exe]"
                         WorkingDirectory="APPLICATIONROOTDIRECTORY" />
 
                 <Shortcut Id="UninstallProduct"
@@ -166,18 +166,6 @@
             <Component Id="CleanupMainApplicationFolder" Guid="*">
                 <RegistryValue Root="HKLM" Key="SOFTWARE\VirtualDisplayDriver" Name="Path" Type="string" Value="[APPLICATIONFOLDER]" KeyPath="yes" />
                 <util:RemoveFolderEx On="uninstall" Property="APPLICATIONFOLDERID" />
-            </Component>
-        </DirectoryRef>
-
-        <!-- App bin folder -->
-        <DirectoryRef Id="Bin">
-            <Component Id="VirtualDisplayDriverControlExe" Guid="*">
-                <File
-                    Id="exe0"
-                    Name="VirtualDisplayDriverControl.exe"
-                    DiskId="1"
-                    Source="$(var.OutPath)\virtual-display-driver-control.exe"
-                    KeyPath="yes" />
             </Component>
         </DirectoryRef>
 
@@ -255,7 +243,8 @@
             <ComponentRef Id="License" />
 
             <ComponentRef Id="VirtualDisplayDriver" />
-            <ComponentRef Id="VirtualDisplayDriverControlExe" />
+            <ComponentGroupRef Id="VDDC" />
+
             <ComponentRef Id="RegistryEntries" />
 
             <ComponentRef Id="ApplicationShortcut" />

@@ -6,8 +6,8 @@ BUILD_OUT_DIR = '''build\windows\x64\runner\Debug'''
 BUILD_OUT_DIR = '''build\windows\x64\runner\Release'''
 BUILD_FLAGS = "--release"
 
-
 [tasks.copy]
+dependencies = ["harvest"]
 script = ['''
     if not exist "..\\target\\output\\vddc" (
         echo Directory not found, creating it...
@@ -28,6 +28,9 @@ script = '''
 [tasks.build]
 dependencies = ["generate"]
 script = "flutter build windows %BUILD_FLAGS%"
+
+[tasks.harvest]
+script = '''heat dir %BUILD_OUT_DIR%\ -o ../target/wix/vddc_files.wxs -dr APPLICATIONFOLDER -ag -sfrag -srd -suid -cg VDDC -var env.VDDC_OUT_PATH'''
 
 [config]
 skip_core_tasks = true
