@@ -105,7 +105,6 @@
 
             <Directory Id="$(var.PlatformProgramFilesFolder)" Name="PFiles">
                 <Directory Id="APPLICATIONFOLDER" Name="VirtualDisplayDriver">
-                    <Directory Id="Bin" Name="bin" />
                     <Directory Id="Driver" Name="driver" />
                 </Directory>
             </Directory>
@@ -166,6 +165,24 @@
             <Component Id="CleanupMainApplicationFolder" Guid="*">
                 <RegistryValue Root="HKLM" Key="SOFTWARE\VirtualDisplayDriver" Name="Path" Type="string" Value="[APPLICATIONFOLDER]" KeyPath="yes" />
                 <util:RemoveFolderEx On="uninstall" Property="APPLICATIONFOLDERID" />
+            </Component>
+
+            <Component Id="CLI">
+                <File
+                    Id="cli_exe"
+                    Name="virtual-display-driver-cli.exe"
+                    DiskId="1"
+                    Source="$(var.OutPath)\virtual-display-driver-cli.exe"
+                    Vital="yes" />
+
+                <Environment
+                    Id="PATH"
+                    Name="PATH"
+                    Value="[APPLICATIONFOLDER]"
+                    Permanent="no"
+                    Part="last"
+                    Action="set"
+                    System="yes" />
             </Component>
         </DirectoryRef>
 
@@ -244,6 +261,7 @@
 
             <ComponentRef Id="VirtualDisplayDriver" />
             <ComponentGroupRef Id="VDDC" />
+            <ComponentRef Id="CLI" />
 
             <ComponentRef Id="RegistryEntries" />
 
